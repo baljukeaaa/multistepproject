@@ -11,7 +11,8 @@ export const UserInformationstep = ({setFormValues, FormValues, nextStep, curren
     }))
   }
 
-  const handleNext = () => {
+  const handleNext = (event) => {
+    event.preventDefault();
     if(!FormValues.firstName) {
       setFormErrors((prev)=> ({...prev, firstName: "Error"}))
     }
@@ -21,12 +22,13 @@ export const UserInformationstep = ({setFormValues, FormValues, nextStep, curren
     if(!FormValues.userName) {
       setFormErrors((prev)=> ({...prev, userName: "Error"}))
     }
-  
+    nextStep();
   }
 
 
   return (
-    <div>
+   <form onSubmit={handleNext}>
+     
       <div className="ml-2 space-y-2  ">
         <p>First name <span className="text-red-700">*</span></p>
         <br />
@@ -35,11 +37,12 @@ export const UserInformationstep = ({setFormValues, FormValues, nextStep, curren
         <input onChange={onChange} placeholder=" Your Last name"></input>
         <p>Username <span className="text-red-700">*</span></p>
         <input onChange={onChange} placeholder=" Your Username"></input>
-        {
-          FormErrors.firstName && <p className="text-red-700">{FormErrors.firstName}</p>
-        }
-        <ContinueButton nextStep={nextStep} currentStep={currentStep} />
+        {/* {
+          FormErrors.formValues && <p className="text-red-700">{FormErrors.ormValues}</p>
+        } */}
+        <ContinueButton nextStep={nextStep}  currentStep={currentStep} />
       </div>
-    </div>
-  )
+    
+ 
+   </form> )
 }
